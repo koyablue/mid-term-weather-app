@@ -1,3 +1,6 @@
+.current-weather-main-container {
+  color: #293845;
+}
 *, *:before, *:after {
   box-sizing: border-box;
 }

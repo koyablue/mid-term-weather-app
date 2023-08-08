@@ -1,0 +1,10 @@
+@use "./constants/media-queries";
+@use "./constants/colors";
+
+.current-weather-main-container {
+  color: colors.$text-main;
+
+  @media only screen and (min-width: media-queries.$media-mobile) {
+
+  }
+}

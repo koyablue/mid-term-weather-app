@@ -3,20 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
   <link rel="stylesheet" href="./styles/index.css" />
   <title>Weather App</title>
 </head>
 <body>
+
   <!-- start main container -->
 
     <!--  select input and test input -->
 
     <!--  current weather container-->
+    <div class="current-weather-main-container">
+
+      <!-- City name and icon -->
+      <div id="current-weather-container">
+        <!-- TODO: loading view -->
+        <div>
+          <p id="current-weather-city-name">City name</p>
+        </div>
+        <div id="current-weather-icon-container">
+          <img src="https://openweathermap.org/img/wn/10d@2x.png" />
+        </div>
+        <div>
+          <p id="current-weather-temp">10°C</p>
+          <p id="current-weather-description"></p>
+          <!-- min, max -->
+          <p id="current-weather-temp-min"></p>
+          <p id="current-weather-temp-max"></p>
+        </div>
+      </div>
+
+      <!-- Like button -->
+      <div>
+        <i class="far fa-star" style="color: #c0c5ce;"></i>
+        <i class="fas fa-star" style="color: #ffc800;"></i>
+      </div>
+
+      <!-- Weather info -->
+      <div>
+          <!-- feels_like -->
+          <p id="current-weather-feels-like"></p>
+          <!-- humidity -->
+          <p id="current-weather-humidity"></p>
+          <!-- pressure -->
+          <p id="current-weather-pressuer"></p>
+      </div>
+
+    </div>
 
     <!--  5 days forecast container -->
 
     <!--  3 hrs forecast container -->
 
   <!-- end main container -->
+
+  <script src="./js/currentWeather.js"></script>
 </body>
 </html>
