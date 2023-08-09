@@ -14,40 +14,60 @@
     <!--  select input and test input -->
 
     <!--  current weather container-->
-    <div class="current-weather-main-container">
+    <div class="current-weather">
 
       <!-- City name and icon -->
       <div id="current-weather-container">
         <!-- TODO: loading view -->
-        <div>
-          <p id="current-weather-city-name">City name</p>
-        </div>
-        <div id="current-weather-icon-container">
-          <img src="https://openweathermap.org/img/wn/10d@2x.png" />
-        </div>
-        <div>
-          <p id="current-weather-temp">10°C</p>
-          <p id="current-weather-description"></p>
-          <!-- min, max -->
-          <p id="current-weather-temp-min"></p>
-          <p id="current-weather-temp-max"></p>
-        </div>
-      </div>
+        <div class="current-weather__title-container">
 
-      <!-- Like button -->
-      <div>
-        <i class="far fa-star" style="color: #c0c5ce;"></i>
-        <i class="fas fa-star" style="color: #ffc800;"></i>
+          <div class="current-weather__title-container__main">
+
+            <div class="current-weather__title">
+              <p class="current-weather__title__city-name" id="current-weather-city-name">
+                City name
+              </p>
+
+              <!-- Like button -->
+              <!-- TODO: display depends on the like status -->
+              <div>
+                <i class="far fa-star" style="color: #c0c5ce;"></i>
+                <!-- <i class="fas fa-star" style="color: #ffc800;"></i> -->
+              </div>
+            </div>
+
+            <div id="current-weather-icon-container">
+              <img id="current-weather-icon" src="https://openweathermap.org/img/wn/10d@2x.png" />
+            </div>
+
+          </div>
+
+
+        </div>
+
+        <!-- Weather info -->
+        <div class="current-weather__info">
+          <div class="current-weather__info__main">
+            <p id="current-weather-temp">10°C</p>
+            <p id="current-weather-main">Rain</p>
+          </div>
+
+          <div class="current-weather__info__sub">
+            <p id="current-weather-description">moderate rain</p>
+            <p id="current-weather-feels-like">Feels like: 9°C</p>
+            <!-- min, max -->
+            <p id="current-weather-temp-max">Max: 20°C</p>
+            <p id="current-weather-temp-min">Min: 10°C</p>
+            <!-- humidity -->
+            <p id="current-weather-humidity">Humidity: 50%</p>
+            <!-- pressure -->
+            <p id="current-weather-pressure">Pressure: 1018hp</p>
+        </div>
       </div>
 
       <!-- Weather info -->
       <div>
-          <!-- feels_like -->
-          <p id="current-weather-feels-like"></p>
-          <!-- humidity -->
-          <p id="current-weather-humidity"></p>
-          <!-- pressure -->
-          <p id="current-weather-pressuer"></p>
+
       </div>
 
     </div>
