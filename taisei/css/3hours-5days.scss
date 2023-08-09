@@ -1,0 +1,54 @@
+.days5-container{
+    margin: 1% 1% 1% 1%;
+    .forecast-cards-container{
+        display: flex;
+        flex-direction: column;
+        .forecast-cards{
+            display: flex;
+            justify-content: space-evenly;
+            border: solid;
+            .forecast-card{
+                border:solid;
+                background-color: aqua;
+                margin: 1% 1% 1% 1%;
+                padding: 1% 1% 1% 1%;
+                cursor: pointer;
+                &:hover{
+                    background-color: aquamarine;
+                }
+
+                &.clicked {
+                    background-color: aquamarine;
+                }
+
+                h2{
+                    font-size: 20px;
+                }
+            }
+            
+        }
+    }
+}
+
+
+.hours3-container{
+    margin: 1% 1% 1% 1%;
+    padding:1% 1% 1% 1%;
+    border:solid;
+    .forecast3-container{
+        .forecasts-3hours{
+            display: flex;
+            justify-content: space-evenly;
+            .forecast-item{
+                border:solid;
+                padding:1% 1% 1% 1%;
+                height:200px;
+
+                h2{
+                    font-size: 19px;
+                }
+
+            }
+        }
+    }
+}

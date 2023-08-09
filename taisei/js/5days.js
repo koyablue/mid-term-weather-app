@@ -105,46 +105,89 @@ function getMostCommonWeather(weatherDescriptions) {
 
 
 //edit dom
-function displayForecastDataInTable(data) {
-    const tableBody = document.querySelector('#fiveDaysForecastTable tbody');
-    tableBody.innerHTML = '';
+// function displayForecastDataInTable(data) {
+//     const tableBody = document.querySelector('#fiveDaysForecastTable tbody');
+//     tableBody.innerHTML = '';
   
-    for (const date in data) {
+//     for (const date in data) {
 
-      if (data.hasOwnProperty(date)) {
-        const dailyInfo = data[date];
-        const mostCommonWeather = getMostCommonWeather(dailyInfo.weatherDescriptions);
+//       if (data.hasOwnProperty(date)) {
+//         const dailyInfo = data[date];
+//         const mostCommonWeather = getMostCommonWeather(dailyInfo.weatherDescriptions);
   
   
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${date}</td>
-          <td>${mostCommonWeather}</td>
-          <td>${dailyInfo.avgPop.toFixed(2)}</td>
-          <td>${dailyInfo.avgTemp.toFixed(2)}</td>
-          <td>${dailyInfo.maxTemp.toFixed(2)}</td>
-          <td>${dailyInfo.minTemp.toFixed(2)}</td>
-          <td>${dailyInfo.avgHumidity.toFixed(2)}</td>
-        `;
+//         const row = document.createElement('tr');
+//         row.innerHTML = `
+//           <td>${date}</td>
+//           <td>${mostCommonWeather}</td>
+//           <td>${dailyInfo.avgTemp.toFixed(2)}</td>
+//         `;
   
-        tableBody.appendChild(row);
-      }
+//         tableBody.appendChild(row);
+//       }
+//     }
+//   }
+function displayForecastDataInCards(data) {
+  const cardsContainer = document.querySelector('.forecast-cards');
+  cardsContainer.innerHTML = '';
+
+  for (const date in data) {
+    if (data.hasOwnProperty(date)) {
+      const dailyInfo = data[date];
+      const mostCommonWeather = getMostCommonWeather(dailyInfo.weatherDescriptions);
+
+      const card = document.createElement('div');
+      card.classList.add('forecast-card');
+      const formattedDate = new Date(date).toISOString().split('T')[0];
+
+      card.innerHTML = `
+        <div class="card" data-date="${formattedDate}" id="card-button">
+          <h2><strong>${date}</strong></h2>
+          <p>${mostCommonWeather}</p>
+        
+          <p>Temp: ${dailyInfo.avgTemp.toFixed(2)} °C</p>
+        </div>
+      `;
+
+      cardsContainer.appendChild(card);
     }
   }
+}
   
 
 
   //finally call 
   async function main() {
+    // ↓ここを自由に変える
       const cityName = 'Vancouver';
     
       try {
         const fiveDaysData = await fetch5DaysForecast(cityName);
-        displayForecastDataInTable(fiveDaysData); // 結果をDOMに表示
+        displayForecastDataInCards(fiveDaysData);
       } catch (error) {
         console.error('Error in main:', error);
       }
   }
   
   main();
+  
+
+  // const allCards = document.querySelectorAll('.forecast-card');
+  // allCards.forEach(card => {
+  //   card.addEventListener('click', (event) => {
+  //     const clickedCard = event.currentTarget;
+      
+  //     // クリックされたカードにクラスを追加
+  //     clickedCard.classList.toggle('clicked');
+      
+  //     // すでにクリックされたカード以外のクラスをリセット
+  //     allCards.forEach(otherCard => {
+  //       if (otherCard !== clickedCard) {
+  //         otherCard.classList.remove('clicked');
+  //       }
+  //     });
+    
+  //     // ここで他の部分の表示を切り替える処理を実装することができます
+  //   });
+  // });
   

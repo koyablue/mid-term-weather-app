@@ -1,0 +1,46 @@
+.days5-container {
+  margin: 1% 1% 1% 1%;
+}
+.days5-container .forecast-cards-container {
+  display: flex;
+  flex-direction: column;
+}
+.days5-container .forecast-cards-container .forecast-cards {
+  display: flex;
+  justify-content: space-evenly;
+  border: solid;
+}
+.days5-container .forecast-cards-container .forecast-cards .forecast-card {
+  border: solid;
+  background-color: aqua;
+  margin: 1% 1% 1% 1%;
+  padding: 1% 1% 1% 1%;
+  cursor: pointer;
+}
+.days5-container .forecast-cards-container .forecast-cards .forecast-card:hover {
+  background-color: aquamarine;
+}
+.days5-container .forecast-cards-container .forecast-cards .forecast-card.clicked {
+  background-color: aquamarine;
+}
+.days5-container .forecast-cards-container .forecast-cards .forecast-card h2 {
+  font-size: 20px;
+}
+
+.hours3-container {
+  margin: 1% 1% 1% 1%;
+  padding: 1% 1% 1% 1%;
+  border: solid;
+}
+.hours3-container .forecast3-container .forecasts-3hours {
+  display: flex;
+  justify-content: space-evenly;
+}
+.hours3-container .forecast3-container .forecasts-3hours .forecast-item {
+  border: solid;
+  padding: 1% 1% 1% 1%;
+  height: 200px;
+}
+.hours3-container .forecast3-container .forecasts-3hours .forecast-item h2 {
+  font-size: 19px;
+}/*# sourceMappingURL=3hours-5days.css.map */

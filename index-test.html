@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles/index.css" />
+  
+  <!-- add -->
+  <link rel="stylesheet" href="taisei/css/3hours-5days.css">
   <title>Weather App</title>
 </head>
 <body>
@@ -14,39 +17,50 @@
     <!--  current weather container-->
 
     <!--  5 days forecast container -->
-    <h1>5 Days Forecast</h1>
-    <table id="fiveDaysForecastTable">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Weather</th>
-          <th>Pop</th>
-          <th>Avg Temp (°C)</th>
-          <th>Max Temp (°C)</th>
-          <th>Min Temp (°C)</th>
-          <th>Humidity</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="days5-container">
+      <!-- <table id="fiveDaysForecastTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Weather</th>
+            <th>Avg Temp (°C)</th>
+            
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table> -->
+
+      <!-- 5 days forecast container -->
+      <div class="forecast-cards-container" id="fiveDaysForecastContainer">
+        <h1>5 Days Forecast</h1>
+        <div class="forecast-cards"></div>
+      </div>
+
+    </div>
+    
 
     <!--  3 hrs forecast container -->
-    <h1>3 Hours Forecast</h1>
-    <table id="threeHoursForecastTable">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Weather</th>
-          <th>Pop</th>
-          <th>Avg Temp (°C)</th>
-          <th>Max Temp (°C)</th>
-          <th>Min Temp (°C)</th>
-          <th>Humidity</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="hours3-container">
+      <!-- <table id="threeHoursForecastTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Weather</th>
+            <th>Pop</th>
+            <th>Avg Temp (°C)</th>
+            <th>Max Temp (°C)</th>
+            <th>Min Temp (°C)</th>
+            <th>Humidity</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table> -->
+      <div class="forecast3-container" id="threeHoursForecastContainer">
+        <h1>3 hours Forecast</h1>
+        <div class="forecasts-3hours"></div>
+      </div>
+    </div>
 
   <!-- end main container -->
 
