@@ -136,6 +136,10 @@ function displayForecastDataInCards(data) {
       const dailyInfo = data[date];
       const mostCommonWeather = getMostCommonWeather(dailyInfo.weatherDescriptions);
 
+      // 天気コードに対応する画像を取得
+      const weatherIconCode = getWeatherIconCode(mostCommonWeather);
+      const weatherIconUrl = getWeatherIconUrl(weatherIconCode);
+
       const card = document.createElement('div');
       card.classList.add('forecast-card');
       const formattedDate = new Date(date).toISOString().split('T')[0];
@@ -144,6 +148,7 @@ function displayForecastDataInCards(data) {
         <div class="card" data-date="${formattedDate}" id="card-button">
           <h2><strong>${date}</strong></h2>
           <p>${mostCommonWeather}</p>
+          <img src="${weatherIconUrl}" alt="${mostCommonWeather}">
         
           <p>Temp: ${dailyInfo.avgTemp.toFixed(2)} °C</p>
         </div>
@@ -154,6 +159,36 @@ function displayForecastDataInCards(data) {
   }
 }
   
+
+
+
+function getWeatherIconCode(weatherDescription) {
+  // 天気説明を基に天気コードを取得
+  // 例: 'light rain' -> '09d'
+  // 注意: 実際のデータと一致させる必要があります
+  // マッピングにない場合は適切な対応を行ってください
+  // （空文字列やデフォルトのコードなど）
+  // この例では手動でマッピングを作成しています
+  // 実際にはAPIの仕様やデータに合わせて適切に取得する必要があります
+  const weatherIconMapping = {
+    'clear sky': '01d',
+    'few clouds': '02d',
+    'scattered clouds': '03d',
+    'broken clouds': '04d',
+    'light rain': '09d',
+    'rain': '10d',
+    'thunderstorm': '11d',
+    'snow':'13d',
+    'mist':'50d',
+  };
+  return weatherIconMapping[weatherDescription] || '';
+}
+
+function getWeatherIconUrl(iconCode) {
+  // 天気コードに基づいてアイコンのURLを構築
+  // 例: '09d' -> 'http://openweathermap.org/img/w/09d.png'
+  return `http://openweathermap.org/img/w/${iconCode}.png`;
+}
 
 
   //finally call 
