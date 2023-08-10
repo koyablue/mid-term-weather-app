@@ -11,6 +11,8 @@
   justify-content: space-evenly;
   width: 100%;
   padding: 0 1% 0 1%;
+  display: flex;
+  flex-wrap: wrap;
 }
 .days5-container .forecast-cards-container .forecast-cards .forecast-card {
   background-color: aqua;
@@ -45,6 +47,8 @@
   display: flex;
   justify-content: space-evenly;
   padding: 1% 0 1% 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 .hours3-container .forecast3-container .forecasts-3hours .forecast-item {
   border: solid;
@@ -61,7 +65,7 @@
   font-size: 19px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 375px) {
   .days5-container .forecast-cards-container {
     display: flex;
     flex-direction: column;

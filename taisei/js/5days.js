@@ -177,13 +177,18 @@ function displayForecastDataInCards(data) {
   
 
 // 9. get city parmeter from url link func
+//ここは、lat,lonを指定してapiリクエストするように変更する
 function getQueryParam(parameter) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(parameter);
 }
 
+
 // get cityName
 const cityName = getQueryParam('city');
+// const lon = getLonFromQueryParam('lon');
+// const lat = getLatFromQueryParam('lat');
+
 //call main()
 main(cityName);
   

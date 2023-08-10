@@ -9,6 +9,8 @@
             justify-content: space-evenly;
             width:100%;
             padding:0 1% 0 1%;
+            display: flex;
+            flex-wrap: wrap;
             .forecast-card{
                 
                 background-color: aqua;
@@ -54,6 +56,9 @@
             display: flex;
             justify-content: space-evenly;
             padding: 1% 0 1% 0;
+
+            display: flex;
+            flex-wrap: wrap;
             .forecast-item{
                 border:solid;
                 padding:1% 1% 1% 1%;
@@ -75,7 +80,7 @@
     }
 }
 
-@media (max-width:700px){
+@media (max-width:375px){
     .days5-container{
         .forecast-cards-container{
             display: flex;

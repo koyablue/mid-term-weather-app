@@ -7,7 +7,9 @@ cardsContainer.addEventListener('click', async (event) => {
 
   // get cityName
   const cityName = getQueryParam('city')
-  
+  // const lon = getLonFromQueryParam('lon');
+  // const lat = getLatFromQueryParam('lat');
+
   if (clickedCard) {
     const selectedDate = clickedCard.getAttribute('data-date');
     await fetchAndDisplay3HoursForecast(selectedDate,cityName);
@@ -103,6 +105,7 @@ function getWeatherIconUrl(iconCode) {
 
 
 // 5. get city parmeter from url link func
+//ここは、lat,lonを指定してapiリクエストするように変更する
 function getQueryParam(parameter) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(parameter);
