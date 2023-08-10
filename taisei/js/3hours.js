@@ -6,21 +6,23 @@ cardsContainer.addEventListener('click', async (event) => {
   const clickedCard = event.target.closest('.card');
 
   // get cityName
-  const cityName = getQueryParam('city')
+  // const cityName = getQueryParam('city')
   // const lon = getLonFromQueryParam('lon');
   // const lat = getLatFromQueryParam('lat');
+  const lon = -123.1207;
+  const lat = 49.2827;
 
   if (clickedCard) {
     const selectedDate = clickedCard.getAttribute('data-date');
-    await fetchAndDisplay3HoursForecast(selectedDate,cityName);
+    await fetchAndDisplay3HoursForecast(selectedDate,lon,lat);
   }
 });
 
 
 //1. 3hours func
-async function fetchAndDisplay3HoursForecast(selectedDate,cityName) {
+async function fetchAndDisplay3HoursForecast(selectedDate,lon,lat) {
   const apiKey = '710bf472e4db9b3a0bfc6b8984516cc1';
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&cnt=40&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/forecast?lon=${lon}&lat=${lat}&appid=${apiKey}&cnt=40&units=metric`;
   const response = await fetch(url);
   const data = await response.json();
 

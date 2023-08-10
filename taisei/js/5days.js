@@ -1,8 +1,8 @@
 // api= "710bf472e4db9b3a0bfc6b8984516cc1"
 //1. 5days
-async function fetch5DaysForecast(cityName) {
+async function fetch5DaysForecast(lon,lat) {
   const apiKey = '710bf472e4db9b3a0bfc6b8984516cc1';
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&cnt=40&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/forecast?lon=${lon}&lat=${lat}&appid=${apiKey}&cnt=40&units=metric`;
 
   try {
     const response = await fetch(url);
@@ -164,10 +164,10 @@ function displayForecastDataInCards(data) {
 
 
   //8. finally call func
-  async function main(cityName) {
+  async function main(lon,lat) {
     
       try {
-        const fiveDaysData = await fetch5DaysForecast(cityName);
+        const fiveDaysData = await fetch5DaysForecast(lon,lat);
         displayForecastDataInCards(fiveDaysData);
       } catch (error) {
         console.error('Error in main:', error);
@@ -185,11 +185,13 @@ function getQueryParam(parameter) {
 
 
 // get cityName
-const cityName = getQueryParam('city');
+// const cityName = getQueryParam('city');
 // const lon = getLonFromQueryParam('lon');
 // const lat = getLatFromQueryParam('lat');
+const lon = -123.1207;
+const lat = 49.2827;
 
 //call main()
-main(cityName);
+main(lon,lat);
   
 
