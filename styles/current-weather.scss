@@ -5,6 +5,11 @@
   width: 100%;
   color: colors.$text-main;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   @media only screen and (min-width: media-queries.$media-mobile) {
     height: 20em;
     display: flex;
@@ -15,14 +20,18 @@
   &__title-container {
     display: flex;
     align-items: center;
+    justify-content: center;
 
     &__main {
       display: flex;
+      // flex-direction: column;
       align-items: center;
       justify-content: center;
 
       @media only screen and (min-width: media-queries.$media-mobile) {
-        flex-direction: column;
+        flex-direction: row;
+        // gap: 1em;
+        // align-items: flex-start;
       }
     }
   }
@@ -32,9 +41,33 @@
     align-items: center;
     gap: 1em;
 
+    @media only screen and (min-width: media-queries.$media-mobile) {
+      flex-direction: column;
+    }
+
     &__city-name {
-      font-size: 2em;
+      font-size: 1.5em;
       font-weight: bold;
+
+      @media only screen and (min-width: media-queries.$media-mobile) {
+        font-size: 2em;
+      }
+    }
+
+    &__icon {
+      width: 4em;
+      height: 4em;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      @media only screen and (min-width: media-queries.$media-mobile) {
+        width: 5em;
+        height: 5em;
+      }
     }
 
   }
@@ -44,17 +77,17 @@
     flex-direction: column;
     gap: 1em;
 
-    @media only screen and (min-width: media-queries.$media-mobile) {
-
-    }
-
     &__main {
-      font-size: 1.2em;
+      font-size: 1em;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5em;
+
+      @media only screen and (min-width: media-queries.$media-mobile) {
+        font-size: 1.2em;
+      }
     }
 
     &__sub {

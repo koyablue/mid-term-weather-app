@@ -47,6 +47,14 @@ const dummy = {
 
 /*****************************************************
  *
+ * Environment
+ *
+ *****************************************************/
+
+const isDev = true
+
+/*****************************************************
+ *
  * Current weather
  *
  *****************************************************/
@@ -248,9 +256,10 @@ const handleLikeIconOnClick = () => {
 
 const main = async () => {
 
-  // const res = await getCurrentWeather(OPEN_WEATHER_API_KEY)
+  const res = isDev
+    ? await getCurrentWeatherDev()
+    : await getCurrentWeather(OPEN_WEATHER_API_KEY)
 
-  const res = await getCurrentWeatherDev()
   generateUI(
     res.name,
     res.weather[0].icon,

@@ -1,6 +1,10 @@
 .current-weather {
   width: 100%;
   color: #293845;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 @media only screen and (min-width: 375px) {
   .current-weather {
@@ -13,6 +17,7 @@
 .current-weather__title-container {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .current-weather__title-container__main {
   display: flex;
@@ -21,7 +26,7 @@
 }
 @media only screen and (min-width: 375px) {
   .current-weather__title-container__main {
-    flex-direction: column;
+    flex-direction: row;
   }
 }
 .current-weather__title {
@@ -29,9 +34,34 @@
   align-items: center;
   gap: 1em;
 }
+@media only screen and (min-width: 375px) {
+  .current-weather__title {
+    flex-direction: column;
+  }
+}
 .current-weather__title__city-name {
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bold;
+}
+@media only screen and (min-width: 375px) {
+  .current-weather__title__city-name {
+    font-size: 2em;
+  }
+}
+.current-weather__title__icon {
+  width: 4em;
+  height: 4em;
+}
+.current-weather__title__icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+@media only screen and (min-width: 375px) {
+  .current-weather__title__icon {
+    width: 5em;
+    height: 5em;
+  }
 }
 .current-weather__info {
   display: flex;
@@ -39,12 +69,17 @@
   gap: 1em;
 }
 .current-weather__info__main {
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5em;
+}
+@media only screen and (min-width: 375px) {
+  .current-weather__info__main {
+    font-size: 1.2em;
+  }
 }
 .current-weather__info__sub {
   display: flex;
