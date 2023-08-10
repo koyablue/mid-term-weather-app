@@ -1,5 +1,5 @@
 // api= "710bf472e4db9b3a0bfc6b8984516cc1"
-//5days
+//1. 5days
 async function fetch5DaysForecast(cityName) {
   const apiKey = '710bf472e4db9b3a0bfc6b8984516cc1';
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&cnt=40&units=metric`;
@@ -20,7 +20,7 @@ async function fetch5DaysForecast(cityName) {
 
 
 
-//function for editing raw data
+//2. function for editing raw data
 function aggregate5DaysData(data) {
   const aggregatedData = {};
 
@@ -68,6 +68,7 @@ function aggregate5DaysData(data) {
   return aggregatedData;
 }
 
+//3. calculate average func
 function calculateAverage(arr) {
   const sum = arr.reduce((total, value) => total + value, 0);
   return sum / arr.length;
@@ -75,7 +76,7 @@ function calculateAverage(arr) {
 
 
 
-//get common weather 
+//4. get common weather 
 function getMostCommonWeather(weatherDescriptions) {
     const weatherCounts = {};
     
@@ -104,29 +105,32 @@ function getMostCommonWeather(weatherDescriptions) {
 }
 
 
-//edit dom
-// function displayForecastDataInTable(data) {
-//     const tableBody = document.querySelector('#fiveDaysForecastTable tbody');
-//     tableBody.innerHTML = '';
-  
-//     for (const date in data) {
+//5. get weather ico code
+function getWeatherIconCode(weatherDescription) {
+  const weatherIconMapping = {
+    'clear sky': '01d',
+    'few clouds': '02d',
+    'scattered clouds': '03d',
+    'broken clouds': '04d',
+    'light rain': '10d',
+    'rain': '10d',
+    'moderate rain': '10d',
+    'shower rain':'09d',
+    'heavy intensity rain':'10d',
+    'thunderstorm': '11d',
+    'snow':'13d',
+    'mist':'50d',
+  };
+  return weatherIconMapping[weatherDescription] || '';
+}
+//6. get weather icon url
+function getWeatherIconUrl(iconCode) {
+  return `http://openweathermap.org/img/w/${iconCode}.png`;
+}
 
-//       if (data.hasOwnProperty(date)) {
-//         const dailyInfo = data[date];
-//         const mostCommonWeather = getMostCommonWeather(dailyInfo.weatherDescriptions);
-  
-  
-//         const row = document.createElement('tr');
-//         row.innerHTML = `
-//           <td>${date}</td>
-//           <td>${mostCommonWeather}</td>
-//           <td>${dailyInfo.avgTemp.toFixed(2)}</td>
-//         `;
-  
-//         tableBody.appendChild(row);
-//       }
-//     }
-//   }
+
+
+//7. edit HTML func
 function displayForecastDataInCards(data) {
   const cardsContainer = document.querySelector('.forecast-cards');
   cardsContainer.innerHTML = '';
@@ -136,7 +140,7 @@ function displayForecastDataInCards(data) {
       const dailyInfo = data[date];
       const mostCommonWeather = getMostCommonWeather(dailyInfo.weatherDescriptions);
 
-      // 天気コードに対応する画像を取得
+      // get weather icon 
       const weatherIconCode = getWeatherIconCode(mostCommonWeather);
       const weatherIconUrl = getWeatherIconUrl(weatherIconCode);
 
@@ -147,10 +151,9 @@ function displayForecastDataInCards(data) {
       card.innerHTML = `
         <div class="card" data-date="${formattedDate}" id="card-button">
           <h2><strong>${date}</strong></h2>
-          <p>${mostCommonWeather}</p>
           <img src="${weatherIconUrl}" alt="${mostCommonWeather}">
         
-          <p>Temp: ${dailyInfo.avgTemp.toFixed(2)} °C</p>
+          <p>${dailyInfo.avgTemp.toFixed(2)} °C</p>
         </div>
       `;
 
@@ -158,43 +161,10 @@ function displayForecastDataInCards(data) {
     }
   }
 }
-  
 
 
-
-function getWeatherIconCode(weatherDescription) {
-  // 天気説明を基に天気コードを取得
-  // 例: 'light rain' -> '09d'
-  // 注意: 実際のデータと一致させる必要があります
-  // マッピングにない場合は適切な対応を行ってください
-  // （空文字列やデフォルトのコードなど）
-  // この例では手動でマッピングを作成しています
-  // 実際にはAPIの仕様やデータに合わせて適切に取得する必要があります
-  const weatherIconMapping = {
-    'clear sky': '01d',
-    'few clouds': '02d',
-    'scattered clouds': '03d',
-    'broken clouds': '04d',
-    'light rain': '09d',
-    'rain': '10d',
-    'thunderstorm': '11d',
-    'snow':'13d',
-    'mist':'50d',
-  };
-  return weatherIconMapping[weatherDescription] || '';
-}
-
-function getWeatherIconUrl(iconCode) {
-  // 天気コードに基づいてアイコンのURLを構築
-  // 例: '09d' -> 'http://openweathermap.org/img/w/09d.png'
-  return `http://openweathermap.org/img/w/${iconCode}.png`;
-}
-
-
-  //finally call 
-  async function main() {
-    // ↓ここを自由に変える
-      const cityName = 'Vancouver';
+  //8. finally call func
+  async function main(cityName) {
     
       try {
         const fiveDaysData = await fetch5DaysForecast(cityName);
@@ -203,26 +173,18 @@ function getWeatherIconUrl(iconCode) {
         console.error('Error in main:', error);
       }
   }
-  
-  main();
+
   
 
-  // const allCards = document.querySelectorAll('.forecast-card');
-  // allCards.forEach(card => {
-  //   card.addEventListener('click', (event) => {
-  //     const clickedCard = event.currentTarget;
-      
-  //     // クリックされたカードにクラスを追加
-  //     clickedCard.classList.toggle('clicked');
-      
-  //     // すでにクリックされたカード以外のクラスをリセット
-  //     allCards.forEach(otherCard => {
-  //       if (otherCard !== clickedCard) {
-  //         otherCard.classList.remove('clicked');
-  //       }
-  //     });
-    
-  //     // ここで他の部分の表示を切り替える処理を実装することができます
-  //   });
-  // });
+// 9. get city parmeter from url link func
+function getQueryParam(parameter) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(parameter);
+}
+
+// get cityName
+const cityName = getQueryParam('city');
+//call main()
+main(cityName);
   
+

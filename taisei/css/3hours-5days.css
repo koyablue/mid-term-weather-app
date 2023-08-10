@@ -1,5 +1,6 @@
 .days5-container {
   margin: 1% 1% 1% 1%;
+  border: solid;
 }
 .days5-container .forecast-cards-container {
   display: flex;
@@ -8,23 +9,31 @@
 .days5-container .forecast-cards-container .forecast-cards {
   display: flex;
   justify-content: space-evenly;
-  border: solid;
+  width: 100%;
+  padding: 0 1% 0 1%;
 }
 .days5-container .forecast-cards-container .forecast-cards .forecast-card {
-  border: solid;
   background-color: aqua;
-  margin: 1% 1% 1% 1%;
+  margin: 1% 0 1% 0;
   padding: 1% 1% 1% 1%;
   cursor: pointer;
+}
+.days5-container .forecast-cards-container .forecast-cards .forecast-card .card {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+.days5-container .forecast-cards-container .forecast-cards .forecast-card .card h2 {
+  font-size: 18px;
 }
 .days5-container .forecast-cards-container .forecast-cards .forecast-card:hover {
   background-color: aquamarine;
 }
 .days5-container .forecast-cards-container .forecast-cards .forecast-card.clicked {
   background-color: aquamarine;
-}
-.days5-container .forecast-cards-container .forecast-cards .forecast-card h2 {
-  font-size: 20px;
 }
 
 .hours3-container {
@@ -35,12 +44,50 @@
 .hours3-container .forecast3-container .forecasts-3hours {
   display: flex;
   justify-content: space-evenly;
+  padding: 1% 0 1% 0;
 }
 .hours3-container .forecast3-container .forecasts-3hours .forecast-item {
   border: solid;
   padding: 1% 1% 1% 1%;
-  height: 250px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
 }
 .hours3-container .forecast3-container .forecasts-3hours .forecast-item h2 {
   font-size: 19px;
+}
+
+@media (max-width: 700px) {
+  .days5-container .forecast-cards-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .days5-container .forecast-cards-container .forecast-cards {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .days5-container .forecast-cards-container .forecast-cards .forecast-card .card h2 {
+    font-size: 10px;
+  }
+  .days5-container .forecast-cards-container .forecast-cards .forecast-card .card p {
+    font-size: 10px;
+  }
+  .hours3-container .forecast3-container .forecasts-3hours {
+    display: flex;
+    flex-direction: column;
+  }
+  .hours3-container .forecast3-container .forecasts-3hours .forecast-item {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+  }
 }/*# sourceMappingURL=3hours-5days.css.map */
