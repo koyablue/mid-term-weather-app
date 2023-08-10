@@ -61,3 +61,7 @@
 .not-liked {
   color: #c0c5ce;
 }
+
+#like-icon {
+  cursor: pointer;
+}

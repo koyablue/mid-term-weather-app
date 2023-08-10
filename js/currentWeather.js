@@ -45,6 +45,12 @@ const dummy = {
   "cod": 200
 }
 
+/*****************************************************
+ *
+ * Current weather
+ *
+ *****************************************************/
+
 /**
  *
  * The default coordinate is Vancouver
@@ -145,6 +151,101 @@ const generateUI = (
   }
 }
 
+
+/*****************************************************
+ *
+ * Like
+ *
+ *****************************************************/
+const LOCAL_STORAGE_KEY = 'ciccc-wmad-weather-app'
+
+const likeIcon = document.getElementById('like-icon')
+
+/**
+ * Get values from local storage
+ *
+ * @returns {string | null}
+ */
+const getLikedItems = () => localStorage.getItem(LOCAL_STORAGE_KEY)
+
+/**
+ * Returns whether cityName is liked or not
+ *
+ * @param {string} cityName
+ * @return {boolean}
+ */
+const isLiked = (cityName) => {
+  const likedItemsRaw = getLikedItems()
+  if (!likedItemsRaw) return false
+
+  const likedItems = JSON.parse(likedItemsRaw)
+  if (!Array.isArray(likedItems)) return false
+
+  return likedItems.includes(cityName.toLowerCase())
+}
+
+/**
+ * Save value to local storage
+ *
+ * @param {*} value
+ */
+const saveLikedItems = (value) => {
+  const itemToSave = Array.isArray(value) ? value : [value]
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(itemToSave));
+}
+
+/**
+ * Save cityName to local storage
+ *
+ * @param {string} cityName
+ */
+const like = (cityName) => {
+  const cityNameLowerCase = cityName.toLocaleLowerCase()
+
+  const likedItemsRaw = getLikedItems()
+  if (!likedItemsRaw) {
+    saveLikedItems([cityNameLowerCase])
+    return
+  }
+
+  const currentLikedItems = JSON.parse(likedItemsRaw)
+  if (!Array.isArray(currentLikedItems)) {
+    saveLikedItems([cityNameLowerCase])
+    return
+  }
+
+  currentLikedItems.includes(cityNameLowerCase)
+    ? saveLikedItems(currentLikedItems.filter(v => v !== cityNameLowerCase))
+    : saveLikedItems(cityNameLowerCase)
+}
+
+/**
+ * Add / remove CSS class to the like icon
+ *
+ */
+const toggleLikeIcon = () => {
+  if (likeIcon.classList.contains('not-liked')) {
+    likeIcon.classList.remove('not-liked', 'fa-star');
+    likeIcon.classList.add('fas', 'fa-star', 'liked');
+  } else {
+    likeIcon.classList.remove('fas', 'fa-star');
+    likeIcon.classList.add('not-liked', 'fa-star');
+  }
+}
+
+const handleLikeIconOnClick = () => {
+  const cityName = document.getElementById('current-weather-city-name').textContent
+  like(cityName)
+  toggleLikeIcon()
+}
+
+
+/*****************************************************
+ *
+ * main
+ *
+ *****************************************************/
+
 const main = async () => {
 
   // const res = await getCurrentWeather(OPEN_WEATHER_API_KEY)
@@ -162,11 +263,18 @@ const main = async () => {
     res.main.humidity,
     res.main.pressure,
   )
+
+  isLiked(res.name) && toggleLikeIcon()
 }
 
-// main()
-// console.log(dummy)
+/*****************************************************
+ *
+ * Event listener
+ *
+ *****************************************************/
 
-document.addEventListener('DOMContentLoaded', () => {
-  main();
+window.addEventListener('load',  async () => {
+   await main()
 })
+
+likeIcon.addEventListener('click', handleLikeIconOnClick)
