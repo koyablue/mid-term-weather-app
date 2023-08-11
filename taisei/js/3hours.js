@@ -108,6 +108,7 @@ function getWeatherIconCode(weatherDescription) {
     'light rain': '09d',
     'rain': '10d',
     'moderate rain': '09d',
+    'heavy intensity rain':'10d',
     'thunderstorm': '11d',
     'snow':'13d',
     'mist':'50d',

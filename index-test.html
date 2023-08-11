@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
   <link rel="stylesheet" href="./styles/index.css" />
   
   <!-- add -->
@@ -24,6 +25,56 @@
     </div>
 
     <!--  current weather container-->
+    <div class="current-weather">
+
+      <!-- City name and icon -->
+      <div id="current-weather-container">
+        <!-- TODO: loading view -->
+        <div class="current-weather__title-container">
+
+          <div class="current-weather__title-container__main">
+
+            <div class="current-weather__title">
+              <!-- City name -->
+              <p class="current-weather__title__city-name" id="current-weather-city-name"></p>
+              <!-- Weather icon -->
+              <div class="current-weather__title__icon" id="current-weather-icon-container">
+                <img id="current-weather-icon" src="" />
+              </div>
+            </div>
+
+            <!-- Like button -->
+            <div>
+              <i class="far fa-star not-liked" id="like-icon"></i>
+            </div>
+
+          </div>
+
+
+        </div>
+
+        <!-- Weather info -->
+        <div class="current-weather__info">
+          <div class="current-weather__info__main">
+            <p id="current-weather-temp"></p>
+            <p id="current-weather-main"></p>
+          </div>
+
+          <div class="current-weather__info__sub">
+            <p id="current-weather-description"></p>
+            <p id="current-weather-feels-like"></p>
+            <!-- min, max -->
+            <p id="current-weather-temp-max"></p>
+            <p id="current-weather-temp-min"></p>
+            <!-- humidity -->
+            <p id="current-weather-humidity"></p>
+            <!-- pressure -->
+            <p id="current-weather-pressure"></p>
+          </div>
+      </div>
+
+    </div>
+
 
     <!--  5 days forecast container -->
     <div class="days5-container">
@@ -42,8 +93,71 @@
         <div class="forecasts-3hours"></div>
       </div>
     </div>
-  </main>
   <!-- end main container -->
+  </main>
+  
+  <script>
+    // Declare global variables and functions here
+
+    /*****************************************************
+     *
+     * constants
+     *
+     *****************************************************/
+    // TODO: Remove API key whenever you push the code
+    const OPEN_WEATHER_API_KEY = ''
+    const LOCAL_STORAGE_KEY = 'ciccc-wmad-weather-app'
+    const isDev = false
+
+
+    /*****************************************************
+     *
+     * DOM
+     *
+     *****************************************************/
+    const favCitySelectBox = document.getElementById('favorite-cities-select')
+
+
+    /*****************************************************
+     *
+     * API
+     *
+     *****************************************************/
+    /**
+     *
+     *
+     * @param {string} apiKey
+     * @param {string} cityName
+     * @return {string}
+     */
+    const getGeocodingApiEndpoint = (apiKey, cityName) => {
+      if (!apiKey) {
+        throw new Error('Invalid API key')
+      }
+
+      if (!cityName) {
+        throw new Error('City name is required')
+      }
+
+      return `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`
+    }
+
+
+    /*****************************************************
+     *
+     * Other functions
+     *
+     *****************************************************/
+    /**
+     * Get values from local storage
+     *
+     * @returns {string | null}
+     */
+    const getLikedItems = () => localStorage.getItem(LOCAL_STORAGE_KEY)
+
+  </script>
+  <script src="./js/currentWeather.js"></script>
+  <script src="./js/favoriteDropdown.js"></script>
 
   <script src="taisei/js/5days.js"></script>
   <script src="taisei/js/3hours.js"></script>
