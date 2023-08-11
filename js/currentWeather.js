@@ -85,25 +85,6 @@ const getCurrentWeatherEndpoint = (apiKey, lat = 49.2827, lon = -123.1207, units
  *
  *****************************************************/
 
-/**
- * Call current weather API
- *
- * @param {string} apiKey
- * @param {number} lat
- * @param {number} lon
- * @param {string} units
- * @return {Promise}
- */
-const getCurrentWeather = async (apiKey, lat, lon, units) => {
-  try {
-    const res = (await fetch(getCurrentWeatherEndpoint(apiKey, lat, lon, units))).json()
-    return res
-  } catch (error) {
-    console.error(error)
-    throw new Error(error)
-  }
-}
-
 const getCurrentWeatherDev = async () => dummy
 
 /**
@@ -129,54 +110,7 @@ const getLocation = async (apiKey, cityName) => {
  *
  *****************************************************/
 
-/**
- * Generate UI by the provided data
- *
- * @param {string} cityName
- * @param {string} iconId
- * @param {number} temp
- * @param {string} weather
- * @param {string} description
- * @param {number} feelsLike
- * @param {number} max
- * @param {number} min
- * @param {number} humidity
- * @param {number} pressure
- */
-const generateUI = (
-  cityName,
-  iconId,
-  temp,
-  weather,
-  description,
-  feelsLike,
-  max,
-  min,
-  humidity,
-  pressure,
-) => {
-  const idTextMap = {
-    'current-weather-city-name': cityName,
-    'current-weather-temp': `${Math.round(temp)}°C`,
-    'current-weather-main': weather,
-    'current-weather-description': description,
-    'current-weather-feels-like': `Feels like: ${feelsLike}°C`,
-    'current-weather-temp-max': `Max: ${Math.round(max)}°C`,
-    'current-weather-temp-min': `Min: ${Math.round(min)}°C`,
-    'current-weather-humidity': `Humidity: ${humidity}%`,
-    'current-weather-pressure': `Pressure: ${pressure}hPa`,
-  }
 
-  const assignInnerTextById = (id, text) => {
-    document.getElementById(id).innerText = text
-  }
-
-  document.getElementById('current-weather-icon').src = getIconUrl(iconId)
-
-  for (const [id, val] of Object.entries(idTextMap)) {
-    assignInnerTextById(id, val)
-  }
-}
 
 
 /*****************************************************
@@ -184,23 +118,9 @@ const generateUI = (
  * Like
  *
  *****************************************************/
-const likeIcon = document.getElementById('like-icon')
 
-/**
- * Returns whether cityName is liked or not
- *
- * @param {string} cityName
- * @return {boolean}
- */
-const isLiked = (cityName) => {
-  const likedItemsRaw = getLikedItems()
-  if (!likedItemsRaw) return false
 
-  const likedItems = JSON.parse(likedItemsRaw)
-  if (!Array.isArray(likedItems)) return false
 
-  return likedItems.includes(cityName.toLowerCase())
-}
 
 /**
  * Save value to local storage
@@ -237,20 +157,6 @@ const like = (cityName) => {
     : saveLikedItems(cityNameLowerCase)
 }
 
-/**
- * Add / remove CSS class to the like icon
- *
- */
-const toggleLikeIcon = () => {
-  if (likeIcon.classList.contains('not-liked')) {
-    likeIcon.classList.remove('not-liked', 'fa-star');
-    likeIcon.classList.add('fas', 'fa-star', 'liked');
-  } else {
-    likeIcon.classList.remove('fas', 'fa-star');
-    likeIcon.classList.add('not-liked', 'fa-star');
-  }
-}
-
 const handleLikeIconOnClick = () => {
   const cityName = document.getElementById('current-weather-city-name').textContent
   like(cityName)
@@ -273,7 +179,7 @@ const handleDropdownOnChange = async (e) => {
 
   const currentWeatherRes = await getCurrentWeather(OPEN_WEATHER_API_KEY, lat, lon)
 
-  generateUI(
+  generateCurrentWeatherUI(
     geocodingRes[0].name,
     currentWeatherRes.weather[0].icon,
     currentWeatherRes.main.temp,
@@ -300,7 +206,7 @@ const currentWeatherMain = async () => {
     ? await getCurrentWeatherDev()
     : await getCurrentWeather(OPEN_WEATHER_API_KEY)
 
-  generateUI(
+  generateCurrentWeatherUI(
     res.name,
     res.weather[0].icon,
     res.main.temp,

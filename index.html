@@ -82,26 +82,6 @@
   </main>
 
   <script>
-    function initAutocomplete() {
-
-        const input = document.getElementById('search-input');
-        const options = {
-            types: ['cities'],
-        };
-
-        const autocomplete = new google.maps.places.Autocomplete(input, options);
-
-        // when selected
-        autocomplete.addListener('place_changed', () => {
-            const place = autocomplete.getPlace();
-            console.log('Selected Place:', place);
-        });
-    }
-    </script>
-    <script
-    src="https://maps.googleapis.com/maps/api/js?key=API_KEY&libraries=places&callback=initAutocomplete" async defer>
-  </script>
-  <script>
     // Declare global variables and functions here
 
     /*****************************************************
@@ -110,9 +90,9 @@
      *
      *****************************************************/
     // TODO: Remove API key whenever you push the code
-    const OPEN_WEATHER_API_KEY = ''
+    const OPEN_WEATHER_API_KEY = '5bb7c7ab71e2a90131433bbfe9467e3e'
     const LOCAL_STORAGE_KEY = 'ciccc-wmad-weather-app'
-    const isDev = false
+    const isDev = true
 
 
     /*****************************************************
@@ -121,13 +101,33 @@
      *
      *****************************************************/
     const favCitySelectBox = document.getElementById('favorite-cities-select')
-
+    const likeIcon = document.getElementById('like-icon')
 
     /*****************************************************
      *
      * API
      *
      *****************************************************/
+
+    /**
+     * Call current weather API
+     *
+     * @param {string} apiKey
+     * @param {number} lat
+     * @param {number} lon
+     * @param {string} units
+     * @return {Promise}
+     */
+    const getCurrentWeather = async (apiKey, lat, lon, units) => {
+      try {
+        const res = (await fetch(getCurrentWeatherEndpoint(apiKey, lat, lon, units))).json()
+        return res
+      } catch (error) {
+        console.error(error)
+        throw new Error(error)
+      }
+    }
+
     /**
      *
      *
@@ -160,9 +160,128 @@
      */
     const getLikedItems = () => localStorage.getItem(LOCAL_STORAGE_KEY)
 
+    /**
+     * Generate UI by the provided data
+     *
+     * @param {string} cityName
+     * @param {string} iconId
+     * @param {number} temp
+     * @param {string} weather
+     * @param {string} description
+     * @param {number} feelsLike
+     * @param {number} max
+     * @param {number} min
+     * @param {number} humidity
+     * @param {number} pressure
+     */
+    const generateCurrentWeatherUI = (
+      cityName,
+      iconId,
+      temp,
+      weather,
+      description,
+      feelsLike,
+      max,
+      min,
+      humidity,
+      pressure,
+    ) => {
+      const idTextMap = {
+        'current-weather-city-name': cityName,
+        'current-weather-temp': `${Math.round(temp)}°C`,
+        'current-weather-main': weather,
+        'current-weather-description': description,
+        'current-weather-feels-like': `Feels like: ${feelsLike}°C`,
+        'current-weather-temp-max': `Max: ${Math.round(max)}°C`,
+        'current-weather-temp-min': `Min: ${Math.round(min)}°C`,
+        'current-weather-humidity': `Humidity: ${humidity}%`,
+        'current-weather-pressure': `Pressure: ${pressure}hPa`,
+      }
+
+      const assignInnerTextById = (id, text) => {
+        document.getElementById(id).innerText = text
+      }
+
+      document.getElementById('current-weather-icon').src = getIconUrl(iconId)
+
+      for (const [id, val] of Object.entries(idTextMap)) {
+        assignInnerTextById(id, val)
+      }
+    }
+
+    /**
+     * Returns whether cityName is liked or not
+     *
+     * @param {string} cityName
+     * @return {boolean}
+     */
+    const isLiked = (cityName) => {
+      const likedItemsRaw = getLikedItems()
+      if (!likedItemsRaw) return false
+
+      const likedItems = JSON.parse(likedItemsRaw)
+      if (!Array.isArray(likedItems)) return false
+
+      return likedItems.includes(cityName.toLowerCase())
+    }
+
+    /**
+     * Add / remove CSS class to the like icon
+     *
+     */
+    const toggleLikeIcon = () => {
+      if (likeIcon.classList.contains('not-liked')) {
+        likeIcon.classList.remove('not-liked', 'fa-star');
+        likeIcon.classList.add('fas', 'fa-star', 'liked');
+      } else {
+        likeIcon.classList.remove('fas', 'fa-star');
+        likeIcon.classList.add('not-liked', 'fa-star');
+      }
+    }
   </script>
   <script src="./js/currentWeather.js"></script>
   <script src="./js/favoriteDropdown.js"></script>
   <script src="./js/searchInput.js"></script>
+
+  <script>
+    function initAutocomplete() {
+
+        const input = document.getElementById('search-input')
+        const options = {
+            types: ['locality', 'political'],
+        }
+
+        const autocomplete = new google.maps.places.Autocomplete(input, options)
+
+        // when selected
+        autocomplete.addListener('place_changed',  async () => {
+            const place = autocomplete.getPlace();
+
+            const res = await getCurrentWeather(
+              OPEN_WEATHER_API_KEY,
+              place.geometry.location.lat(),
+              place.geometry.location.lng()
+            )
+
+            generateCurrentWeatherUI(
+              place.name,
+              res.weather[0].icon,
+              res.main.temp,
+              res.weather[0].main,
+              res.weather[0].description,
+              res.main.feels_like,
+              res.main.temp_max,
+              res.main.temp_min,
+              res.main.humidity,
+              res.main.pressure,
+            )
+
+            isLiked(res.name) && toggleLikeIcon()
+        })
+    }
+    </script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDldLCToRvSJQxQ_TMOw8t7XXluo9cLLic&libraries=places&callback=initAutocomplete&language=en" async defer>
+  </script>
 </body>
 </html>
