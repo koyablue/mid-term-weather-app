@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
   <link rel="stylesheet" href="./styles/index.css" />
+  <!-- add -->
+  <link rel="stylesheet" href="taisei/css/3hours-5days.css">
   <title>Weather App</title>
 </head>
 <body>
@@ -74,9 +76,25 @@
 
     </div>
 
-    <!--  5 days forecast container -->
+    <div class="days5-hours3">
+      <!--  5 days forecast container -->
+      <div class="days5-container">
+        <!-- 5 days forecast container -->
+        <div class="forecast-cards-container" id="fiveDaysForecastContainer">
+          <h1>5 Days Forecast</h1>
+          <div class="forecast-cards"></div>
+        </div>
+      </div>
+      
 
-    <!--  3 hrs forecast container -->
+      <!--  3 hrs forecast container -->
+      <div class="hours3-container">    
+        <div class="forecast3-container" id="threeHoursForecastContainer">
+          <h1>3 hours Forecast</h1>
+          <div class="forecasts-3hours"></div>
+        </div>
+      </div>
+    </div>
 
   <!-- end main container -->
   </main>
@@ -283,5 +301,8 @@
     <script
     src="https://maps.googleapis.com/maps/api/js?key=API_KEY&libraries=places&callback=initAutocomplete&language=en" async defer>
   </script>
+  <script src="taisei/js/5days.js"></script>
+  <script src="taisei/js/3hours.js"></script>
+
 </body>
 </html>

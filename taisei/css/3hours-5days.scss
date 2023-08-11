@@ -1,0 +1,149 @@
+
+.days5-hours3{
+    display: flex;
+    flex-direction: column;
+    border:solid;
+    // margin-top:700px;
+    .days5-container{
+        margin: 1% 1% 1% 1%;
+        border: solid;
+        
+        flex: 1; /* 子要素を均等に分配 */
+        margin: 1%; /* 適切な余白を設定 */
+        padding: 1%;
+        border: solid;
+        .forecast-cards-container{
+            display: flex;
+            flex-direction: column;
+            .forecast-cards{
+                display: flex;
+                justify-content: space-evenly;
+                width:100%;
+                padding:0 1% 0 1%;
+                flex-wrap: wrap;
+                .forecast-card{
+                    
+                    background-color: aqua;
+                    margin: 1% 0 1% 0;
+                    padding: 1% 1% 1% 1%;
+    
+                    .card{
+                        display: flex;
+                        flex-direction: column;
+        
+                        align-content: center;
+                        align-items: center;
+                        justify-content: center;
+                        justify-items: center;
+    
+                        h2{
+                            font-size: 18px;
+                        }
+        
+                    }
+    
+                   
+                    cursor: pointer;
+                    &:hover{
+                        background-color: aquamarine;
+                    }
+    
+                    &.clicked {
+                        background-color: aquamarine;
+                    }
+                } 
+            }
+        }
+    }
+    
+    
+    .hours3-container{
+        margin: 1% 1% 1% 1%;
+        padding:1% 1% 1% 1%;
+        border:solid;
+
+        flex: 1; /* 子要素を均等に分配 */
+        margin: 1%; /* 適切な余白を設定 */
+        padding: 1%;
+        border: solid;
+        .forecast3-container{
+            
+            .forecasts-3hours{
+                display: flex;
+                justify-content: space-evenly;
+                padding: 1% 0 1% 0;
+    
+                display: flex;
+                flex-wrap: wrap;
+                .forecast-item{
+                    border:solid;
+                    padding:1% 1% 1% 1%;
+                    height:200px;
+    
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    justify-items: center;
+                    align-content: center;
+    
+                    h2{
+                        font-size: 19px;
+                    }
+    
+                }
+            }
+        }
+    }
+    
+
+   
+  
+    
+    @media (max-width:1500px){
+        .days5-container{
+            .forecast-cards-container{
+                display: flex;
+                flex-direction: column;
+                .forecast-cards{
+                    display: flex;
+                    justify-content: space-evenly;
+                    
+                    .forecast-card{
+                       
+                        .card{
+                    
+                            h2{
+                                font-size: 10px;
+                            }
+                            p{
+                                font-size: 10px;
+                            }
+                        }
+                    } 
+                }
+            }
+        }
+    
+    
+    
+        .hours3-container{
+            .forecast3-container{
+                .forecasts-3hours{
+                    display: flex;
+                    flex-direction: column;
+                    .forecast-item{
+                        width:100%;
+                        height:30%;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        justify-items: center;
+                        align-content: center;
+                    }
+                }
+            }
+        } 
+    }
+}
