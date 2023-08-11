@@ -1,0 +1,29 @@
+@use "./constants/media-queries";
+@use "./constants/colors";
+
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  &__fav-dropdown {
+    width: 10em;
+    height: 2em;
+    border: 1px solid #c0c5ce;
+    border-radius: 8px;
+
+    @media only screen and (min-width: media-queries.$media-mobile) {
+    }
+  }
+
+  &__input {
+    width: 10em;
+    height: 2em;
+    border: 1px solid #c0c5ce;
+    border-radius: 8px;
+
+    @media only screen and (min-width: media-queries.$media-mobile) {
+    }
+  }
+}

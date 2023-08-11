@@ -10,8 +10,18 @@
 <body>
 
   <!-- start main container -->
+  <main class="main-container">
 
     <!--  select input and test input -->
+    <div class="search-section">
+      <select class="search-section__fav-dropdown" id="favorite-cities-select">
+        <option value="">Favorite cities</option>
+      </select>
+
+      <div>
+        <input type="text" class="search-section__input" id="search-input" placeholder="Search city" />
+      </div>
+    </div>
 
     <!--  current weather container-->
     <div class="current-weather">
@@ -69,7 +79,68 @@
     <!--  3 hrs forecast container -->
 
   <!-- end main container -->
+  </main>
+  <script>
+    // Declare global variables and functions here
 
+    /*****************************************************
+     *
+     * constants
+     *
+     *****************************************************/
+    // TODO: Remove API key whenever you push the code
+    const OPEN_WEATHER_API_KEY = '5bb7c7ab71e2a90131433bbfe9467e3e'
+    const LOCAL_STORAGE_KEY = 'ciccc-wmad-weather-app'
+    const isDev = false
+
+
+    /*****************************************************
+     *
+     * DOM
+     *
+     *****************************************************/
+    const favCitySelectBox = document.getElementById('favorite-cities-select')
+
+
+    /*****************************************************
+     *
+     * API
+     *
+     *****************************************************/
+    /**
+     *
+     *
+     * @param {string} apiKey
+     * @param {string} cityName
+     * @return {string}
+     */
+    const getGeocodingApiEndpoint = (apiKey, cityName) => {
+      if (!apiKey) {
+        throw new Error('Invalid API key')
+      }
+
+      if (!cityName) {
+        throw new Error('City name is required')
+      }
+
+      return `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`
+    }
+
+
+    /*****************************************************
+     *
+     * Other functions
+     *
+     *****************************************************/
+    /**
+     * Get values from local storage
+     *
+     * @returns {string | null}
+     */
+    const getLikedItems = () => localStorage.getItem(LOCAL_STORAGE_KEY)
+
+  </script>
   <script src="./js/currentWeather.js"></script>
+  <script src="./js/favoriteDropdown.js"></script>
 </body>
 </html>

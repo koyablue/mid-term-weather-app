@@ -1,0 +1,18 @@
+@use "./constants/media-queries";
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+  width: 100%;
+  max-width: 1440px;
+  min-width: 375px;
+  padding: 2em;
+  margin: 0 auto;
+
+  @media only screen and (min-width: media-queries.$media-mobile-mid) {
+    padding: 2em 10em;
+  }
+}

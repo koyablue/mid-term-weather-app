@@ -1,6 +1,3 @@
-// TODO: Remove the value whenever you push the code
-const OPEN_WEATHER_API_KEY = ''
-
 const dummy = {
   "coord": {
       "lon": -123.1207,
@@ -44,14 +41,6 @@ const dummy = {
   "name": "Vancouver",
   "cod": 200
 }
-
-/*****************************************************
- *
- * Environment
- *
- *****************************************************/
-
-const isDev = true
 
 /*****************************************************
  *
@@ -165,16 +154,7 @@ const generateUI = (
  * Like
  *
  *****************************************************/
-const LOCAL_STORAGE_KEY = 'ciccc-wmad-weather-app'
-
 const likeIcon = document.getElementById('like-icon')
-
-/**
- * Get values from local storage
- *
- * @returns {string | null}
- */
-const getLikedItems = () => localStorage.getItem(LOCAL_STORAGE_KEY)
 
 /**
  * Returns whether cityName is liked or not
@@ -247,14 +227,59 @@ const handleLikeIconOnClick = () => {
   toggleLikeIcon()
 }
 
+/*****************************************************
+ *
+ * Geocoding
+ *
+ *****************************************************/
+const getLocation = async (apiKey, cityName) => {
+  try {
+    const res = (await fetch(getGeocodingApiEndpoint(apiKey, cityName))).json()
+    return res
+  } catch (error) {
+    console.error(error)
+    throw new Error(error)
+  }
+}
+
+
+/*****************************************************
+ *
+ * Select favorite city
+ *
+ *****************************************************/
+const handleDropdownOnChange = async (e) => {
+  const value = e.target.value
+  if (!value) return
+
+  const geocodingRes = await getLocation(OPEN_WEATHER_API_KEY, value)
+  const lat = geocodingRes[0].lat
+  const lon = geocodingRes[0].lon
+
+  const currentWeatherRes = await getCurrentWeather(OPEN_WEATHER_API_KEY, lat, lon)
+
+  generateUI(
+    geocodingRes[0].name,
+    currentWeatherRes.weather[0].icon,
+    currentWeatherRes.main.temp,
+    currentWeatherRes.weather[0].main,
+    currentWeatherRes.weather[0].description,
+    currentWeatherRes.main.feels_like,
+    currentWeatherRes.main.temp_max,
+    currentWeatherRes.main.temp_min,
+    currentWeatherRes.main.humidity,
+    currentWeatherRes.main.pressure,
+  )
+
+  isLiked(currentWeatherRes.name) && toggleLikeIcon()
+}
 
 /*****************************************************
  *
  * main
  *
  *****************************************************/
-
-const main = async () => {
+const currentWeatherMain = async () => {
 
   const res = isDev
     ? await getCurrentWeatherDev()
@@ -283,7 +308,11 @@ const main = async () => {
  *****************************************************/
 
 window.addEventListener('load',  async () => {
-   await main()
+   await currentWeatherMain()
 })
 
 likeIcon.addEventListener('click', handleLikeIconOnClick)
+
+favCitySelectBox.addEventListener('change', async (e) => {
+  await handleDropdownOnChange(e)
+})

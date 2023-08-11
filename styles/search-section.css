@@ -1,0 +1,18 @@
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.search-section__fav-dropdown {
+  width: 10em;
+  height: 2em;
+  border: 1px solid #c0c5ce;
+  border-radius: 8px;
+}
+.search-section__input {
+  width: 10em;
+  height: 2em;
+  border: 1px solid #c0c5ce;
+  border-radius: 8px;
+}
