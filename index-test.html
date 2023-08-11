@@ -11,8 +11,17 @@
 </head>
 <body>
   <!-- start main container -->
-
+  <main class="main-container">
     <!--  select input and test input -->
+    <div class="search-section">
+      <select class="search-section__fav-dropdown" id="favorite-cities-select">
+        <option value="">Favorite cities</option>
+      </select>
+
+      <div>
+        <input type="text" class="search-section__input" id="search-input" placeholder="Search city" />
+      </div>
+    </div>
 
     <!--  current weather container-->
 
@@ -33,7 +42,7 @@
         <div class="forecasts-3hours"></div>
       </div>
     </div>
-
+  </main>
   <!-- end main container -->
 
   <script src="taisei/js/5days.js"></script>

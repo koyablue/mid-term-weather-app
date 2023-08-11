@@ -9,20 +9,36 @@ cardsContainer.addEventListener('click', async (event) => {
   // const cityName = getQueryParam('city')
   // const lon = getLonFromQueryParam('lon');
   // const lat = getLatFromQueryParam('lat');
-  const lon = -123.1207;
-  const lat = 49.2827;
+  // const lon = -123.1207;
+  // const lat = 49.2827;
+
+  //get cityName, from input or select
+  const searchInput = document.getElementById('search-input');
+  const favoriteCitiesSelect = document.getElementById('favorite-cities-select');
+  const inputValue = searchInput.value;
+  const selectedValue = favoriteCitiesSelect.value;
+
+  let cityName="";
+  if(inputValue!==""){
+    cityName=inputValue;
+  }else if(selectedValue!==""){
+    cityName=selectedValue;
+  }else{
+    cityName="Vancouver";
+  }
+
 
   if (clickedCard) {
     const selectedDate = clickedCard.getAttribute('data-date');
-    await fetchAndDisplay3HoursForecast(selectedDate,lon,lat);
+    await fetchAndDisplay3HoursForecast(selectedDate,cityName);
   }
 });
 
 
 //1. 3hours func
-async function fetchAndDisplay3HoursForecast(selectedDate,lon,lat) {
+async function fetchAndDisplay3HoursForecast(selectedDate,cityName) {
   const apiKey = '710bf472e4db9b3a0bfc6b8984516cc1';
-  const url = `https://api.openweathermap.org/data/2.5/forecast?lon=${lon}&lat=${lat}&appid=${apiKey}&cnt=40&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&cnt=40&units=metric`;
   const response = await fetch(url);
   const data = await response.json();
 
