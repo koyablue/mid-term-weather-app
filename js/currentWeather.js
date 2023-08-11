@@ -44,9 +44,17 @@ const dummy = {
 
 /*****************************************************
  *
- * Current weather
+ * Utils
  *
  *****************************************************/
+
+/**
+ * Returns an URL of a weather icon
+ *
+ * @param {string} iconId
+ * @returns {string}
+ */
+const getIconUrl = (iconId) => `https://openweathermap.org/img/wn/${iconId}@2x.png`
 
 /**
  *
@@ -70,13 +78,12 @@ const getCurrentWeatherEndpoint = (apiKey, lat = 49.2827, lon = -123.1207, units
   return `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`
 }
 
-/**
- * Returns an URL of a weather icon
+
+/*****************************************************
  *
- * @param {string} iconId
- * @returns {string}
- */
-const getIconUrl = (iconId) => `https://openweathermap.org/img/wn/${iconId}@2x.png`
+ * API call
+ *
+ *****************************************************/
 
 /**
  * Call current weather API
@@ -98,6 +105,29 @@ const getCurrentWeather = async (apiKey, lat, lon, units) => {
 }
 
 const getCurrentWeatherDev = async () => dummy
+
+/**
+ * Geocoding API
+ *
+ * @param {string} apiKey
+ * @param {string} cityName
+ * @return {Promise}
+ */
+const getLocation = async (apiKey, cityName) => {
+  try {
+    const res = (await fetch(getGeocodingApiEndpoint(apiKey, cityName))).json()
+    return res
+  } catch (error) {
+    console.error(error)
+    throw new Error(error)
+  }
+}
+
+/*****************************************************
+ *
+ * UI
+ *
+ *****************************************************/
 
 /**
  * Generate UI by the provided data
@@ -227,21 +257,6 @@ const handleLikeIconOnClick = () => {
   toggleLikeIcon()
 }
 
-/*****************************************************
- *
- * Geocoding
- *
- *****************************************************/
-const getLocation = async (apiKey, cityName) => {
-  try {
-    const res = (await fetch(getGeocodingApiEndpoint(apiKey, cityName))).json()
-    return res
-  } catch (error) {
-    console.error(error)
-    throw new Error(error)
-  }
-}
-
 
 /*****************************************************
  *
@@ -300,6 +315,7 @@ const currentWeatherMain = async () => {
 
   isLiked(res.name) && toggleLikeIcon()
 }
+
 
 /*****************************************************
  *

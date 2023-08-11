@@ -80,6 +80,27 @@
 
   <!-- end main container -->
   </main>
+
+  <script>
+    function initAutocomplete() {
+
+        const input = document.getElementById('search-input');
+        const options = {
+            types: ['cities'],
+        };
+
+        const autocomplete = new google.maps.places.Autocomplete(input, options);
+
+        // when selected
+        autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            console.log('Selected Place:', place);
+        });
+    }
+    </script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7KzHhlZvh6_62neeeqGxy0gyUKg4qH28&libraries=places&callback=initAutocomplete" async defer>
+  </script>
   <script>
     // Declare global variables and functions here
 
@@ -142,5 +163,6 @@
   </script>
   <script src="./js/currentWeather.js"></script>
   <script src="./js/favoriteDropdown.js"></script>
+  <script src="./js/searchInput.js"></script>
 </body>
 </html>
