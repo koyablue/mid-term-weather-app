@@ -44,7 +44,6 @@
 }
 @media only screen and (min-width: 375px) {
   .current-weather {
-    height: 20em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -186,4 +185,4 @@ input {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-}/*# sourceMappingURL=index.css.map */
+}

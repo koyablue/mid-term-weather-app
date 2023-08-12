@@ -79,11 +79,31 @@ const getCurrentWeatherEndpoint = (apiKey, lat = 49.2827, lon = -123.1207, units
 }
 
 
-/*****************************************************
+/**
+ * Create dropdown menu
  *
- * API call
- *
- *****************************************************/
+ */
+const generateFavoriteCityOptions = () => {
+  const emptyOption = document.createElement('option')
+  emptyOption.value = ''
+  emptyOption.innerText = 'Favorite cities'
+
+  favCitySelectBox.appendChild(emptyOption)
+
+  const likedCitiesRaw = getLikedItems()
+  if (!likedCitiesRaw) return
+
+  const likedCities = JSON.parse(likedCitiesRaw)
+  if (!Array.isArray(likedCities)) return
+
+  likedCities.forEach(city => {
+    const option = document.createElement('option')
+    option.value = city
+    option.innerText = city
+    favCitySelectBox.appendChild(option)
+  })
+}
+
 
 const getCurrentWeatherDev = async () => dummy
 
@@ -103,24 +123,6 @@ const getLocation = async (apiKey, cityName) => {
     throw new Error(error)
   }
 }
-
-/*****************************************************
- *
- * UI
- *
- *****************************************************/
-
-
-
-
-/*****************************************************
- *
- * Like
- *
- *****************************************************/
-
-
-
 
 /**
  * Save value to local storage
@@ -154,13 +156,17 @@ const like = (cityName) => {
 
   currentLikedItems.includes(cityNameLowerCase)
     ? saveLikedItems(currentLikedItems.filter(v => v !== cityNameLowerCase))
-    : saveLikedItems(cityNameLowerCase)
+    : saveLikedItems([...currentLikedItems, cityNameLowerCase])
 }
 
 const handleLikeIconOnClick = () => {
   const cityName = document.getElementById('current-weather-city-name').textContent
   like(cityName)
   toggleLikeIcon()
+
+  // TODO: re-render the dropdown
+  favCitySelectBox.innerHTML = null
+  generateFavoriteCityOptions()
 }
 
 
@@ -232,6 +238,8 @@ const currentWeatherMain = async () => {
 window.addEventListener('load',  async () => {
    await currentWeatherMain()
 })
+
+window.addEventListener('load', generateFavoriteCityOptions)
 
 likeIcon.addEventListener('click', handleLikeIconOnClick)
 
