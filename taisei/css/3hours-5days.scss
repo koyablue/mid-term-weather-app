@@ -4,8 +4,9 @@
     flex-direction: column;
     border:solid;
     // margin-top:700px;
+    width:110%;
     .days5-container{
-        margin: 1% 1% 1% 1%;
+        margin: 1% 0 1% 0;
         border: solid;
         
         flex: 1; /* 子要素を均等に分配 */
@@ -100,7 +101,7 @@
    
   
     
-    @media (max-width:1500px){
+    @media (max-width:370px){
         .days5-container{
             .forecast-cards-container{
                 display: flex;
