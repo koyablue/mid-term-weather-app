@@ -194,6 +194,9 @@ const favoriteCitiesSelect = document.getElementById('favorite-cities-select');
 // 10. event handler, when input.
 searchInput.addEventListener('input', (event) => {
   const inputValue = event.target.value;
+  if(inputValue===""){
+    inputValue="Vancouver";
+  }
   //call main()
   main(inputValue);
 });
@@ -201,6 +204,9 @@ searchInput.addEventListener('input', (event) => {
 // 11. event handler , when selected.
 favoriteCitiesSelect.addEventListener('change', (event) => {
   const selectedValue = event.target.value;
+  if(selectedValue===""){
+    selectedValue="Vancouver";
+  }
   //call main()
   main(selectedValue);
 });
