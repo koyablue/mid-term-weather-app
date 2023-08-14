@@ -154,11 +154,10 @@ const like = (cityName) => {
 }
 
 const handleLikeIconOnClick = () => {
-  const cityName = document.getElementById('current-weather-city-name').textContent
+  const cityName = document.getElementById('current-weather-city-name').textContent.toLowerCase()
   like(cityName)
-  toggleLikeIcon()
+  toggleLikeIcon(isLiked(cityName))
 
-  // TODO: re-render the dropdown
   favCitySelectBox.innerHTML = null
   generateFavoriteCityOptions()
 }
@@ -180,7 +179,7 @@ const handleDropdownOnChange = async (e) => {
   const currentWeatherRes = await getCurrentWeather(OPEN_WEATHER_API_KEY, lat, lon)
 
   generateCurrentWeatherUI(
-    geocodingRes[0].name,
+    currentWeatherRes.name,
     currentWeatherRes.weather[0].icon,
     currentWeatherRes.main.temp,
     currentWeatherRes.weather[0].main,
@@ -192,7 +191,7 @@ const handleDropdownOnChange = async (e) => {
     currentWeatherRes.main.pressure,
   )
 
-  isLiked(currentWeatherRes.name) && toggleLikeIcon()
+  toggleLikeIcon(true)
 }
 
 /*****************************************************
@@ -219,7 +218,7 @@ const currentWeatherMain = async () => {
     res.main.pressure,
   )
 
-  isLiked(res.name) && toggleLikeIcon()
+  toggleLikeIcon(isLiked(res.name))
 }
 
 
