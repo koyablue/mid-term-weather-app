@@ -17,7 +17,6 @@
     <!--  select input and test input -->
     <div class="search-section">
       <select class="search-section__fav-dropdown" id="favorite-cities-select">
-        <option value="">Favorite cities</option>
       </select>
 
       <div>
@@ -239,27 +238,25 @@
 
       const likedItems = JSON.parse(likedItemsRaw)
       if (!Array.isArray(likedItems)) return false
-
       return likedItems.includes(cityName.toLowerCase())
     }
 
     /**
      * Add / remove CSS class to the like icon
      *
+     * @param {boolean} isLiked
      */
-    const toggleLikeIcon = () => {
-      if (likeIcon.classList.contains('not-liked')) {
-        likeIcon.classList.remove('not-liked', 'fa-star');
-        likeIcon.classList.add('fas', 'fa-star', 'liked');
+    const toggleLikeIcon = (isLiked) => {
+      if (isLiked) {
+        likeIcon.classList.remove('not-liked', 'fa-star')
+        likeIcon.classList.add('fas', 'fa-star', 'liked')
       } else {
-        likeIcon.classList.remove('fas', 'fa-star');
-        likeIcon.classList.add('not-liked', 'fa-star');
+        likeIcon.classList.remove('fas', 'fa-star', 'liked')
+        likeIcon.classList.add('not-liked', 'fa-star')
       }
     }
   </script>
   <script src="./js/currentWeather.js"></script>
-  <script src="./js/favoriteDropdown.js"></script>
-  <script src="./js/searchInput.js"></script>
 
   <script>
     function initAutocomplete() {
@@ -294,10 +291,11 @@
               res.main.pressure,
             )
 
-            isLiked(res.name) && toggleLikeIcon()
+            toggleLikeIcon(isLiked(place.name))
         })
     }
     </script>
+    <!-- TODO: Remove API key whenever you push the code -->
     <script
     src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete&language=en" async defer>
   </script>
