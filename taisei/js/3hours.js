@@ -125,7 +125,7 @@ function getWeatherIconUrl(iconCode) {
 
 
 // 5. get city parmeter from url link func
-//ここは、lat,lonを指定してapiリクエストするように変更する
+//ここは、lat,lonを指定してapiリクエストするように変更する?
 function getQueryParam(parameter) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(parameter);
